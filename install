@@ -1,0 +1,103 @@
+#!/bin/bash
+
+# ANSI color codes for coloring the progress bar and messages
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m'  # No color
+
+# Define the version of your Caesar cipher program
+CAESAR_VERSION="caesar, version 1.0"
+
+# Display the welcome message
+echo -e "${GREEN}Welcome to the Caesar cipher program installer!${NC}"
+
+# Check if Caesar cipher is already installed
+if ! command -v caesar &>/dev/null; then
+    # Caesar cipher is not installed, proceed with installation
+    echo -e "${GREEN}Caesar cipher is not installed. Proceeding with installation...${NC}"
+else
+    INSTALLED_VERSION=$(caesar --version) 2>/dev/null 
+    if [[ "$INSTALLED_VERSION" != "$CAESAR_VERSION" ]] || [[ "$1" == "--force" ]]; then
+        # Step 1: Install or upgrade Caesar cipher
+        echo -e "${GREEN}Step 1: Installing/upgrading Caesar cipher...${NC}"
+    else
+        echo -e "${GREEN}$CAESAR_VERSION or higher is already installed.${NC}"
+        exit 0
+    fi
+fi
+
+# Function to display a text-based progress bar
+progress_bar() {
+    local duration="$1"
+    local width=50
+    local fill="#"
+    local increment=0.02  # Increment for progress bar
+
+    printf "Progress: [${GREEN}"
+    for ((i = 0; i < width; i++)); do
+        printf "%s" "$fill"
+        sleep "$increment"
+    done
+    printf "${NC}] ${GREEN}100%%${NC}\n"
+}
+
+# Check if Python 3 is installed
+if ! command -v python3 &>/dev/null; then
+    echo -e "${RED}Python 3 is not installed. Installing...${NC}"
+    sudo apt-get update
+    sudo apt-get install -y python3
+fi
+
+# Check if pip for Python 3 is installed
+if ! command -v pip3 &>/dev/null; then
+    echo -e "${RED}pip for Python 3 is not installed. Installing...${NC}"
+    sudo apt-get install -y python3-pip
+fi
+
+# Check if Python 3 venv is installed
+if ! command -v python3 -m venv &>/dev/null; then
+    echo -e "${RED}Python 3 venv is not installed. Installing...${NC}"
+    sudo apt-get install -y python3-venv
+fi
+
+# Create a virtual environment
+echo -e "${GREEN}Creating a virtual environment...${NC}"
+python3 -m venv venv
+source venv/bin/activate
+
+# Install requirements
+echo -e "${GREEN}Installing requirements...${NC}"
+pip install -r requirements.txt &>/dev/null
+
+# Check if Caesar cipher is already installed and at the required version
+INSTALLED_VERSION=$(caesar --version)
+if [[ "$INSTALLED_VERSION" != "$CAESAR_VERSION" ]] || [[ "$1" == "--force" ]]; then
+    # Step 2: Install or upgrade Caesar cipher
+    echo -e "${GREEN}Step 2: Installing/upgrading Caesar cipher...${NC}"
+    pip install --upgrade caesar==$CAESAR_VERSION &>/dev/null
+else
+    echo -e "${GREEN}$CAESAR_VERSION or higher is already installed.${NC}"
+fi
+
+# Step 3: Create the executable
+echo -e "${GREEN}Step 3: Creating the executable...${NC}"
+pyinstaller --onefile caesar.py &>/dev/null
+
+# Step 4: Move the executable to a system path (e.g., /usr/local/bin/)
+echo -e "${GREEN}Step 4: Moving the executable to /usr/local/bin/...${NC}"
+sudo mv dist/caesar /usr/local/bin/ &>/dev/null
+
+# Step 5: Clean up the build files
+echo -e "${GREEN}Step 5: Cleaning up build files...${NC}"
+rm -rf build/ dist/ __pycache__ caesar.spec &>/dev/null
+
+# Deactivate and delete the virtual environment
+echo -e "${GREEN}Deactivating and deleting the virtual environment...${NC}"
+deactivate
+rm -rf venv
+
+# Display completion message
+echo -e "${GREEN}Build and installation completed successfully.${NC}"
+
+# Call the progress_bar function with a duration of 1 second to indicate completion
+progress_bar 1
