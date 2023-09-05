@@ -1,5 +1,6 @@
 import click
 import codecs
+import os
 
 # Define Caesar cipher encryption function
 def caesar_cipher(text, shift):
@@ -67,8 +68,9 @@ encryption_algorithms = {
 @click.option('--decrypt', is_flag=True, help='Decrypt the text (default is to encrypt).')
 @click.option('--output', type=click.File('w'), help='Output file to write the result to.')
 @click.option('--algorithm', type=click.Choice(['caesar', 'rot13', 'atbash', 'crot13'], case_sensitive=False), default='caesar', help='Encryption algorithm to use (default: Caesar cipher).')
-@click.version_option(version=VERSION)  # Add a version option
-def main(file, text, shift, decrypt, output, algorithm):
+@click.version_option(version=VERSION)
+@click.option('--uninstall', is_flag=True, help='Uninstall the program.')
+def main(file, text, shift, decrypt, output, algorithm, uninstall):
     """
     Command-line tool for text encryption and decryption using various algorithms.
 
@@ -91,6 +93,19 @@ def main(file, text, shift, decrypt, output, algorithm):
     - Encrypt text from a file and save the result to another file:
       $ caesar.py --file input.txt --output encrypted.txt --shift 5
     """
+
+    if uninstall:
+        response = click.prompt('Are you sure you want to uninstall the program? (y/n)', type=str, default='n')
+        if response.lower() == 'y':
+            try:
+                os.remove('/usr/local/bin/caesar')
+                click.echo('Uninstalled successfully.')
+            except OSError:
+                click.echo('Only System Administrators can uninstall the program. Run the command with sudo.')
+        else:
+            click.echo('Uninstallation aborted.')
+        return
+
     if file and text: 
         click.echo("Error: Please provide either '--file' or '--text', not both.")
         return
