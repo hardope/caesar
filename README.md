@@ -82,6 +82,7 @@ The command-line tool provides several options to customize the encryption or de
 - `--output`: Output file to write the result to.
 
 - `--algorithm`: Encryption algorithm to use (default: Caesar cipher). Supported options are 'caesar', 'rot13', 'atbash', and 'crot13'.
+- `--uninstall`: Uninstall caesar cypher
 
 ### Version
 The check the installed version of caesar you have installed
