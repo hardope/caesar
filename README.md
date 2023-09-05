@@ -69,6 +69,8 @@ The script will take care of installing Python 3, `pip`, Python 3 `venv`, creati
 
 The command-line tool provides several options to customize the encryption or decryption process:
 
+- `--help`: Display help and usage info on command line
+
 - `--file`: Input file to read text from.
 
 - `--text`: Text to encrypt or decrypt.
