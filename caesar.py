@@ -69,6 +69,28 @@ encryption_algorithms = {
 @click.option('--algorithm', type=click.Choice(['caesar', 'rot13', 'atbash', 'crot13'], case_sensitive=False), default='caesar', help='Encryption algorithm to use (default: Caesar cipher).')
 @click.version_option(version=VERSION)  # Add a version option
 def main(file, text, shift, decrypt, output, algorithm):
+    """
+    Command-line tool for text encryption and decryption using various algorithms.
+
+    This tool supports multiple encryption algorithms, including Caesar cipher,
+    ROT13, Atbash cipher, and a custom crot13 algorithm.
+
+    Usage examples:
+    - Encrypt text using Caesar cipher:
+      $ caesar.py --text "Hello, World!" --shift 3
+
+    - Decrypt text using ROT13:
+      $ caesar.py --text "Uryyb, Jbeyq!" --algorithm rot13 --decrypt
+
+    - Encrypt text using the custom crot13 algorithm:
+      $ caesar.py --text "Hello, World!" --algorithm crot13 --shift 3
+
+    - Decrypt text using the custom crot13 algorithm:
+      $ caesar.py --text "Uryyb, Jbeyq!" --algorithm crot13 --decrypt --shift 3
+
+    - Encrypt text from a file and save the result to another file:
+      $ caesar.py --file input.txt --output encrypted.txt --shift 5
+    """
     if file and text: 
         click.echo("Error: Please provide either '--file' or '--text', not both.")
         return
