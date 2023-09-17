@@ -3,7 +3,9 @@ import codecs
 import os
 
 # Define Caesar cipher encryption function
-def caesar_cipher(text, shift):
+def caesar_cipher(text, shift, option):
+    if option == 'decrypt':
+        shift = -shift
     encrypted_text = ""
     for char in text:
         if char.isalpha():
@@ -120,7 +122,7 @@ def main(file, text, shift, decrypt, output, algorithm, uninstall):
             input_text = file.read()
 
         if algorithm == 'caesar':
-            result = caesar_cipher(input_text, shift if not decrypt else -shift)
+            result = caesar_cipher(input_text, shift, 'encrypt' if not decrypt else 'decrypt')
         elif algorithm == 'rot13':
             result = rot13_cipher(input_text)
         elif algorithm == 'atbash':
