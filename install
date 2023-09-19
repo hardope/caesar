@@ -67,7 +67,7 @@ source venv/bin/activate
 
 # Install requirements
 echo -e "${GREEN}Installing requirements...${NC}"
-pip install -r requirements.txt &>/dev/null
+pip install -r cmd-reqs.txt &>/dev/null
 
 # Check if Caesar cipher is already installed and at the required version
 INSTALLED_VERSION=$(caesar --version)

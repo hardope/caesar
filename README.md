@@ -6,7 +6,10 @@ This is a command-line tool for text encryption and decryption using various alg
 
 - [Supported Algorithms](#supported-algorithms)
 - [Usage Cases](#usage-cases)
+- [API](#api)
 - [Installation](#installation)
+   - [Command Line Tool Installation](#commmand-line-tool)
+   - [Web API Installation](#web-api)
 - [Usage Options](#usage-options)
 - [Examples](#examples)
 
@@ -40,20 +43,26 @@ These algorithms are used for different purposes and have varying levels of secu
 
 - **Learning Cryptography**: This tool is a practical way to learn about classic encryption algorithms like the Caesar cipher and ROT13.
 
+## API
+
+The FastAPI Caesar Cipher API is a simple web API that provides text transformation operations using using the ciphers listed above. Additionally, it offers the ability to perform these transformations on text files and save the results to the server's "files" directory which is then served as static files made available for download.
+
 ## Installation
+
+### Commmand Line Tool
 
 To install and use the Text Encryption Command-Line Tool, follow these steps:
 
 1. Clone the repository to your local machine:
 
    ```shell
-   git clone https://github.com/yourusername/text-encryption-tool.git
+   git clone https://github.com/hardope/caesar
    ```
 
 2. Navigate to the project directory:
 
    ```shell
-   cd text-encryption-tool
+   cd tcaesar
    ```
 
 3. Run the provided installation script to set up the environment, install dependencies, and make the command-line tool available:
@@ -165,3 +174,43 @@ python text_encryptor.py --file encrypted.txt --algorithm crot13 --decrypt --shi
 ```
 
 These examples demonstrate how to use the Text Encryption Command-Line Tool with file inputs and outputs, allowing you to perform encryption and decryption on text stored in files.
+
+### WEB API
+
+To run the FastAPI application locally, follow these steps:
+
+* Clone the repository
+
+```bash
+git clone https://github.com/hardope/caesar
+```
+
+* Navigate to the project directory
+
+```bash
+cd caesar
+```
+
+* Create a virtual environment
+
+```bash
+python3 -m venv venv
+```
+
+* Activate virtual environment
+
+```bash
+source venv/bin/activate
+```
+
+* Install the required dependencies using pip
+
+```bash
+pip install -r requirements.txt
+```
+
+* Start the web server
+
+```bash
+uvicorn app:app
+```
