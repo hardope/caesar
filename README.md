@@ -1,4 +1,4 @@
-# Text Encryption Command-Line Tool
+# Text Encryption Command-Line Tool & API
 
 This is a command-line tool for text encryption and decryption using various algorithms. It supports multiple encryption algorithms, including Caesar cipher, ROT13, Atbash cipher, and a custom `crot13` algorithm. You can use this tool to secure your text-based information or decode encrypted messages.
 

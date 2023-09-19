@@ -46,11 +46,11 @@ def atbash_cipher(text):
 
 def crot13(text, shift, option):
     if option == 'encrypt':
-        res = caesar_cipher(text, shift)
+        res = caesar_cipher(text, shift, option)
         return rot13_cipher(res)
     
     elif option == 'decrypt':
-        res = caesar_cipher(text, -shift)  # Decrypt using Caesar cipher with a negative shift
+        res = caesar_cipher(text, shift, option)  # Decrypt using Caesar cipher with a negative shift
         return rot13_cipher(res)
 
 
