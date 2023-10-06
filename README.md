@@ -15,6 +15,7 @@ This is a command-line tool for text encryption and decryption using various alg
 
 ## Supported Algorithms
 
+
 1. **Caesar Cipher:**
    - The Caesar cipher is a simple substitution cipher where each letter in the plaintext is shifted a fixed number of places down or up the alphabet.
    - For example, with a shift of 3, 'A' becomes 'D', 'B' becomes 'E', and so on.
