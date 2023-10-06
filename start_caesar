@@ -1,0 +1,24 @@
+#!/bin/bash
+
+NAME=caesar
+DIR=/home/ubuntu/caesar
+USER=ubuntu
+GROUP=ubuntu
+WORKERS=3
+WORKER_CLASS=uvicorn.workers.UvicornWorker
+VENV=$DIR/venv/bin/activate
+BIND=0.0.0.0:8000
+LOG_LEVEL=error
+
+cd $DIR
+source $VENV
+
+exec gunicorn app:app \
+  --name $NAME \
+  --workers $WORKERS \
+  --worker-class $WORKER_CLASS \
+  --user=$USER \
+  --group=$GROUP \
+  --bind=$BIND \
+  --log-level=$LOG_LEVEL \
+  --log-file=-
