@@ -26,7 +26,7 @@ class CaesarFile(BaseModel):
 
 @router.get("/")
 async def index():
-    return {"message": "Welcome to the Caesar cipher API!😊"}
+    return {"message": "Welcome to the Caesar cipher API!😊😊"}
 
 @router.post("/rot13")
 async def rot13_api(text: str):
