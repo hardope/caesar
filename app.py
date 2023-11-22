@@ -20,6 +20,9 @@ class Caesar(BaseModel):
     shift: int
     option: str
 
+class Default(BaseModel):
+    text: str
+
 class CaesarFile(BaseModel):
     shift: int = Form(...)
     option: str = Form(...)
@@ -29,20 +32,20 @@ async def index():
     return {"message": "Welcome to the Caesar cipher API!😊😊"}
 
 @router.post("/rot13")
-async def rot13_api(text: str):
-    return {"message": rot13_cipher(text)}
+async def rot13_api(val: Default):
+    return {"message": rot13_cipher(val.text)}
 
 @router.post("/atbash")
-async def atbash_api(text: str):
-    return {"message": atbash_cipher(text)}
+async def atbash_api(val: Default):
+    return {"message": atbash_cipher(val.text)}
 
 @router.post("/caesar")
 async def caesar_api(caesar: Caesar):
     return {"message": caesar_cipher(caesar.text, caesar.shift, caesar.option)}
 
 @router.post("/crot13")
-async def crot13_api(text: str, shift: int, option: str):
-    return {"message": crot13(text, shift, option)}
+async def crot13_api(val: Caesar):
+    return {"message": crot13(val.text, val.shift, val.option)}
 
 @router.post("/caesar/file")
 async def caesar_file_api(file: UploadFile = File(...), shift: int = Form(...), option: str = Form(...) ):
@@ -93,4 +96,4 @@ async def atbash_file_api(file: UploadFile = File(...)):
     return {"message": "File uploaded successfully!", "file": new_file}
 
 app.include_router(router, prefix="")
-app.mount("/files", StaticFiles(directory="files"), name="files")
+app.mount("/files", StaticFiles(directory="files"), name="files")++++
