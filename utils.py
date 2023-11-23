@@ -27,7 +27,7 @@ def nav_page(page_name, timeout_secs=3):
     html(nav_script)
 
 def request(algorithm, text, shift=0, option="encrypt"):
-    url = f"http://localhost:8000/{algorithm}"
+    url = f"http://51.20.78.196/{algorithm}"
 
     payload = {"text": text, "shift": shift, "option": option}
     headers = {"Content-Type": "application/json"}

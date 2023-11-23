@@ -1,5 +1,5 @@
 import streamlit as st
-from utils import nav_page
+from utils import request
 
 # Title
 st.title("Caesar Cipher")
@@ -8,15 +8,33 @@ st.markdown("## Welcome to the Caesar Cipher App")
 
 st.markdown("### A multiple algorithm encryption and decryption tool")
 
-if st.button("Caesar Cipher"):
-    nav_page("caesar_cipher")
 
-if st.button("Atbash Cipher"):
-    nav_page("atbash_cipher")
+text = st.text_area("Enter text to encrypt or decrypt", height=200)
 
-if st.button("Rot13 Cipher"):
-    nav_page("rot13_cipher")
+algorithm = st.selectbox("Select algorithm", ("Caesar", "CRot13", "Rot13", "Atbash"))
 
-if st.button("CRot13 Cipher"):
-    nav_page("crot13_cipher")
+if algorithm == "Caesar":
+    shift = st.number_input("Enter shift value", min_value=1, value=3)
+    action = st.radio("Action", ("Encrypt", "Decrypt"))
+    action = action.lower()
+    if st.button("Submit"):
+        st.markdown("### Output")
+        st.write(request('caesar', text, shift, action))
 
+if algorithm == "CRot13":
+    shift = st.number_input("Enter shift value", min_value=1, value=3)
+    action = st.radio("Action", ("Encrypt", "Decrypt"))
+    action = action.lower()
+    if st.button("Submit"):
+        st.markdown("### Output")
+        st.write(request('crot13', text, shift, action))
+
+if algorithm == "Rot13":
+    if st.button("Submit"):
+        st.markdown("### Output")
+        st.write(request('rot13', text))
+
+if algorithm == "Atbash":
+    if st.button("Submit"):
+        st.markdown("### Output")
+        st.write(request('atbash', text))
