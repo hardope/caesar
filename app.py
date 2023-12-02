@@ -96,4 +96,4 @@ async def atbash_file_api(file: UploadFile = File(...)):
     return {"message": "File uploaded successfully!", "file": new_file}
 
 app.include_router(router, prefix="")
-app.mount("/files", StaticFiles(directory="files"), name="files")++++
+app.mount("/files", StaticFiles(directory="files"), name="files")
