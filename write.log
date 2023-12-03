@@ -1,0 +1,14 @@
+/home/ubuntu/caesar/data.sh: line 22: deactivate: command not found
+Traceback (most recent call last):
+  File "/home/ubuntu/caesar/request.py", line 114, in <module>
+    main()
+  File "/home/ubuntu/caesar/request.py", line 68, in main
+    write()
+  File "/home/ubuntu/caesar/request.py", line 84, in write
+    sql = "INSERT INTO requests (route, ip) VALUES ('{}', '{}')".format(line[0], line[1])
+IndexError: list index out of range
+/home/ubuntu/caesar/data.sh: line 22: deactivate: command not found
+/home/ubuntu/caesar/data.sh: line 22: deactivate: command not found
+/home/ubuntu/caesar/data.sh: line 22: deactivate: command not found
+/home/ubuntu/caesar/data.sh: line 22: deactivate: command not found
+/home/ubuntu/caesar/data.sh: line 22: deactivate: command not found

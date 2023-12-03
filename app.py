@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, Depends, HTTPException, status, File, UploadFile, Form
+from fastapi import FastAPI, APIRouter, Depends, HTTPException, status, File, UploadFile, Form, Request
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
@@ -14,6 +14,9 @@ app = FastAPI(
 )
 router = APIRouter()
 
+def write(route, ip):
+    with open ('/home/ubuntu/caesar/visit.txt', 'a')as file:
+        file.write(f"{route} : {ip}\n")
 
 class Caesar(BaseModel):
     text: str
@@ -32,19 +35,23 @@ async def index():
     return {"message": "Welcome to the Caesar cipher API!😊😊"}
 
 @router.post("/rot13")
-async def rot13_api(val: Default):
+async def rot13_api(val: Default, request:Request):
+    write('/rot13', request.client.host)
     return {"message": rot13_cipher(val.text)}
 
 @router.post("/atbash")
-async def atbash_api(val: Default):
+async def atbash_api(val: Default, request:Request):
+    write('/atbash', request.client.host)
     return {"message": atbash_cipher(val.text)}
 
 @router.post("/caesar")
-async def caesar_api(caesar: Caesar):
+async def caesar_api(caesar: Caesar, request:Request):
+    write('/caesar', request.client.host)
     return {"message": caesar_cipher(caesar.text, caesar.shift, caesar.option)}
 
 @router.post("/crot13")
-async def crot13_api(val: Caesar):
+async def crot13_api(val: Caesar, request:Request):
+    write('/crot13', request.client.host)
     return {"message": crot13(val.text, val.shift, val.option)}
 
 @router.post("/caesar/file")
