@@ -29,23 +29,34 @@ class CaesarFile(BaseModel):
 
 @router.get("/")
 async def index():
-    return {"message": "Welcome to the Caesar cipher API!😊😊"}
+    return {
+        "message": "Welcome to the Caesar cipher API!",
+        "docs": "caesar.hardope.tech/docs"
+    }
 
 @router.post("/rot13")
 async def rot13_api(val: Default):
-    return {"message": rot13_cipher(val.text)}
+    return {
+        "message": rot13_cipher(val.text)
+    }
 
 @router.post("/atbash")
 async def atbash_api(val: Default):
-    return {"message": atbash_cipher(val.text)}
+    return {
+        "message": atbash_cipher(val.text)
+    }
 
 @router.post("/caesar")
 async def caesar_api(caesar: Caesar):
-    return {"message": caesar_cipher(caesar.text, caesar.shift, caesar.option)}
+    return {
+        "message": caesar_cipher(caesar.text, caesar.shift, caesar.option)
+    }
 
 @router.post("/crot13")
 async def crot13_api(val: Caesar):
-    return {"message": crot13(val.text, val.shift, val.option)}
+    return {
+        "message": crot13(val.text, val.shift, val.option)
+    }
 
 @router.post("/caesar/file")
 async def caesar_file_api(file: UploadFile = File(...), shift: int = Form(...), option: str = Form(...) ):
@@ -57,7 +68,9 @@ async def caesar_file_api(file: UploadFile = File(...), shift: int = Form(...), 
             f.write(out)
     except:
         raise HTTPException(status_code=400, detail="Invalid file")
-    return {"message": "File uploaded successfully!", "file": new_file}
+    return {
+        "message": "File uploaded successfully!", "file": new_file
+    }
 
 @router.post("/crot13/file")
 async def crot13_file_api(file: UploadFile = File(...), shift: int = Form(...), option: str = Form(...) ):
@@ -69,7 +82,9 @@ async def crot13_file_api(file: UploadFile = File(...), shift: int = Form(...), 
             f.write(out)
     except:
         raise HTTPException(status_code=400, detail="Invalid file")
-    return {"message": "File uploaded successfully!", "file": new_file}
+    return {
+        "message": "File uploaded successfully!", "file": new_file
+    }
 
 @router.post("/rot13/file")
 async def rot13_file_api(file: UploadFile = File(...)):
@@ -81,7 +96,9 @@ async def rot13_file_api(file: UploadFile = File(...)):
             f.write(out)
     except:
         raise HTTPException(status_code=400, detail="Invalid file")
-    return {"message": "File uploaded successfully!", "file": new_file}
+    return {
+        "message": "File uploaded successfully!", "file": new_file
+    }
 
 @router.post("/atbash/file")
 async def atbash_file_api(file: UploadFile = File(...)):
@@ -93,7 +110,9 @@ async def atbash_file_api(file: UploadFile = File(...)):
             f.write(out)
     except:
         raise HTTPException(status_code=400, detail="Invalid file")
-    return {"message": "File uploaded successfully!", "file": new_file}
+    return {
+        "message": "File uploaded successfully!", "file": new_file
+    }
 
 app.include_router(router, prefix="")
 app.mount("/files", StaticFiles(directory="files"), name="files")
