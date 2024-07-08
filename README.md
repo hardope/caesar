@@ -62,7 +62,7 @@ To install and use the Text Encryption Command-Line Tool, follow these steps:
 2. Navigate to the project directory:
 
    ```shell
-   cd tcaesar
+   cd caesar
    ```
 
 3. Run the provided installation script to set up the environment, install dependencies, and make the command-line tool available:
