@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
 from caesar import caesar_cipher, rot13_cipher, atbash_cipher, crot13
 from uuid import uuid4
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="Caesar Cipher API",
@@ -12,6 +13,14 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url='/redoc'
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 router = APIRouter()
 
 
